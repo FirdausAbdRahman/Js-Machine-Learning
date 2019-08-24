@@ -6,7 +6,7 @@ const modelParams = {
     scoreThreshold: 0.79,    // confidence threshold for predictions.
   }
   
-
+// accessing webcam
 navigator.getUserMedia = navigator.getUserMedia || 
 navigator.webkitGetUserMedia ||
 navigator.mozGetUserMedia ||
@@ -19,12 +19,13 @@ const context = canvas.getContext("2d");
 
 let model;
 
+//start webcam video stream on given video element
 handTrack.startVideo(video)
 .then(status => {
     if(status){
         navigator.getUserMedia({video: {}}, stream => {
             video.srcObject = stream;
-            setInterval(runDetection, 50);
+            setInterval(runDetection, 10);
         },
         err => console.log(err)
         );
@@ -32,15 +33,20 @@ handTrack.startVideo(video)
 });
 
 function runDetection(){
-    model.detect(video).then(predictions => {
+    model.detect(video)
+   // predictions are an array of results from the detect() method
+    .then(predictions => {
         console.log(predictions);
-        model.renderPredictions(predictions, canvas, context, video);
+
+    //draw bounding box (and the input mediasource image) on the specified canvas
+    model.renderPredictions(predictions, canvas, context, video);
         if(predictions.length > 0) {
             audio.play();
         }
     });
 }
 
+//loading the model
 handTrack.load(modelParams).then(lmodel => {
     model = lmodel;
 });
