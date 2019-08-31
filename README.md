@@ -2,6 +2,7 @@
 
 1. Hand Detection App (tutorial: https://www.youtube.com/watch?v=s66w28knp80)
 2. Real Time Face Detection (tutorial: https://www.youtube.com/watch?v=CVClHLwv-4I)
+3. Air Guitar (https://www.youtube.com/watch?v=VD2bIMBu2y8)
 
 
 References:-
